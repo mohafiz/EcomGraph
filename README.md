@@ -6,6 +6,6 @@
 
 <ul>
 
-    <li> Authentication (register, verify account, login, and logout). </li>
+Authentication (register, verify account, login, and logout).
 
 </ul>
