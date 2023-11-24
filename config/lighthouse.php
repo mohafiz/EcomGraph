@@ -16,7 +16,7 @@ return [
         /*
          * The URI the endpoint responds to, e.g. mydomain.com/graphql.
          */
-        'uri' => '/api',
+        'uri' => '/graphql',
 
         /*
          * Lighthouse creates a named route for convenient URL generation and redirects.
@@ -40,6 +40,8 @@ return [
 
             // Logs every incoming GraphQL query.
             // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
+
+            //\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ],
 
         /*
@@ -61,7 +63,7 @@ return [
     |
     */
 
-    'guards' => null,
+    'guards' => ['sanctum'],
 
     /*
     |--------------------------------------------------------------------------

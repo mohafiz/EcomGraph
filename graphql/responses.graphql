@@ -1,0 +1,13 @@
+type Result {
+    success: Boolean!
+    message: String
+}
+
+type UserData {
+    success: Boolean!
+    user: User!
+    token: String
+}
+
+union LoginResult = UserData | Result
+union RegisterResult = UserData | Result

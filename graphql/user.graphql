@@ -1,0 +1,44 @@
+scalar Upload
+  @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
+type Query {
+    user(id: ID @eq): User @find
+
+    users(
+      name: String @where(operator: "like"),
+      role: Int @where(operator: "=")
+    ): [User!]! @paginate(defaultCount: 10)
+}
+
+type Mutation {
+  updateUser(
+    id: ID! @rules(apply: ["exists:users,id"]),
+    name: String,
+    email: String @rules(apply: ["email", "unique:users,email"]),
+    password: String @rules(apply: ["min:8"])
+  ): User! @update
+
+  deleteUser(id: ID! @eq): User @delete
+
+  upsertUser(
+    id: ID! @rules(apply: ["exists:users,id"]),
+    name: String,
+    email: String @rules(apply: ["email", "unique:users,email"]),
+    password: String @rules(apply: ["min:8"])
+  ): User! @upsert
+
+  uploadAvatar(avatar: Upload!): User! @guard
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    role: Int!
+    avatar: String
+    verified: Boolean!
+    created_at: DateTime!
+    updated_at: DateTime!
+    cart: [Product!]! @belongsToMany(relation: "cart")
+}
