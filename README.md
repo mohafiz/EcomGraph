@@ -41,10 +41,6 @@ Product Reviews and Ratings.
 </li>
 
 <li>
-Search Functionality.
-</li>
-
-<li>
 Wishlist.
 </li>
 
