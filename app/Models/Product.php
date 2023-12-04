@@ -14,7 +14,8 @@ class Product extends Model
         'name',
         'price',
         'photo',
-        'stock'
+        'stock',
+        'description'
     ];
 
     public function users(): BelongsToMany

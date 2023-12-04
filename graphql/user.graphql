@@ -8,6 +8,8 @@ type Query {
       name: String @where(operator: "like"),
       role: Int @where(operator: "=")
     ): [User!]! @paginate(defaultCount: 10)
+
+    profile: User! @guard @auth
 }
 
 type Mutation {
@@ -15,17 +17,9 @@ type Mutation {
     id: ID! @rules(apply: ["exists:users,id"]),
     name: String,
     email: String @rules(apply: ["email", "unique:users,email"]),
-    password: String @rules(apply: ["min:8"])
-  ): User! @update
-
-  deleteUser(id: ID! @eq): User @delete
-
-  upsertUser(
-    id: ID! @rules(apply: ["exists:users,id"]),
-    name: String,
-    email: String @rules(apply: ["email", "unique:users,email"]),
-    password: String @rules(apply: ["min:8"])
-  ): User! @upsert
+    password: String @rules(apply: ["min:8", "confirmed"])
+    password_confirmation: String
+  ): User! @guard @can(ability: "update") @update
 
   uploadAvatar(avatar: Upload!): User! @guard
 }

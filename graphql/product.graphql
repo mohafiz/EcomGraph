@@ -1,9 +1,15 @@
 extend type Query {
-    product(
-      id: ID @eq @rules(apply: ["required_with:name,price"])
-    ): Product @find
+    products(
+      name: String @where(operator: "like")
+      orderBy: _ @orderBy(columns: ["id", "price", "stock", "created_at"])
+    ): [Product] @guard @paginate(defaultCount: 10)
 
-    products(name: String @where(operator: "like")): [Product] @paginate(defaultCount: 10)
+    product( id: ID @eq ): Product @guard @find
+}
+
+extend type Mutation {
+  addToCart(id: ID! @eq): Result! @guard
+  removeFromCart(id: ID! @eq): Result! @guard
 }
 
 type Product {
@@ -12,7 +18,7 @@ type Product {
   price: String!
   photo: String!
   stock: Int!
-  users: [User!]! @belongsToMany(relation: "users")
+  description: String
   created_at: DateTime!
   updated_at: DateTime!
 }
