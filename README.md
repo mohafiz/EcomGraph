@@ -15,6 +15,10 @@ Main screen: list products, filter them, order them, get specific product, add i
 </li>
 
 <li>
+Individual product screen.
+</li>
+
+<li>
 User profile: get user info, update user info
 </li>
 
@@ -23,7 +27,49 @@ Checkout process: create an order, calculate total price, proceed to checkout
 </li>
 
 <li>
-Orders history
+Orders history.
+</li>
+
+</ul>
+
+## Future work
+
+<ul>
+
+<li>
+Product Reviews and Ratings.
+</li>
+
+<li>
+Search Functionality.
+</li>
+
+<li>
+Wishlist.
+</li>
+
+<li>
+Promotions and Discounts.
+</li>
+
+<li>
+Notifications.
+</li>
+
+<li>
+Internationalization.
+</li>
+
+<li>
+Performance Optimization.
+</li>
+
+<li>
+Analytics.
+</li>
+
+<li>
+Social Media Integration.
 </li>
 
 </ul>
