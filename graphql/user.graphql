@@ -14,12 +14,11 @@ type Query {
 
 type Mutation {
   updateUser(
-    id: ID! @rules(apply: ["exists:users,id"]),
     name: String,
     email: String @rules(apply: ["email", "unique:users,email"]),
     password: String @rules(apply: ["min:8", "confirmed"])
     password_confirmation: String
-  ): User! @guard @can(ability: "update") @update
+  ): Result! @guard
 
   uploadAvatar(avatar: Upload!): User! @guard
 }
@@ -35,4 +34,5 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     cart: [Product!]! @belongsToMany(relation: "cart")
+    orders: [Order!]! @hasMany
 }

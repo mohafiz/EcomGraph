@@ -18,4 +18,12 @@ Main screen: list products, filter them, order them, get specific product, add i
 User profile: get user info, update user info
 </li>
 
+<li>
+Checkout process: create an order, calculate total price, proceed to checkout
+</li>
+
+<li>
+Orders history
+</li>
+
 </ul>

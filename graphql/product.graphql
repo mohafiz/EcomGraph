@@ -10,6 +10,34 @@ extend type Query {
 extend type Mutation {
   addToCart(id: ID! @eq): Result! @guard
   removeFromCart(id: ID! @eq): Result! @guard
+
+  createOrder(products: [OrderDetails!]): Order! @guard
+
+  checkout(
+    orderId: ID!
+    shipping: ShippingInfo!
+    billing: BillingInfo!
+  ): Result! @guard
+}
+
+input OrderDetails {
+  productId: ID
+  quantity: Int
+}
+
+input ShippingInfo {
+  fullname: String!
+  shippingAddress: String!
+  email: String! @rules(apply: ["email"])
+  phone: String! @rules(apply: ["numeric"])
+}
+
+input BillingInfo {
+  cardHolder: String!
+  cardNumber: String! @rules(apply: ["string", "numeric"])
+  expMonth: String! @rules(apply: ["string", "numeric"])
+  expYear: String! @rules(apply: ["string", "numeric"])
+  CVV: String! @rules(apply: ["string", "numeric"])
 }
 
 type Product {
@@ -21,4 +49,12 @@ type Product {
   description: String
   created_at: DateTime!
   updated_at: DateTime!
+}
+
+type Order {
+  id: ID
+  products: [Product!] @belongsToMany
+  payed: Boolean
+  totalPrice: String
+  user: User @belongsTo
 }

@@ -20,7 +20,8 @@ class ProductFactory extends Factory
             'name' => fake()->word(),
             'price' => fake()->numerify('###'),
             'photo' => fake()->filePath(),
-            'stock' => fake()->numerify('##')
+            'stock' => fake()->numerify('##'),
+            'description' => fake()->text()
         ];
     }
 }

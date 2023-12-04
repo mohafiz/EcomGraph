@@ -27,4 +27,9 @@ class Product extends Model
     {
         return $query->where('stock', '>', 0);
     }
+
+    function orders(): BelongsToMany
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');    
+    }
 }
