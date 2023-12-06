@@ -28,6 +28,9 @@ extend type Mutation {
     productId: ID! @rules(apply: ["exists:products,id"])
     review: String!
   ): Result! @guard
+
+  addToWishlist(productId: ID! @rules(apply: ["exists:products,id"])): Result! @guard
+  removeFromWishlist(productId: ID! @rules(apply: ["exists:products,id"])): Result! @guard
 }
 
 input OrderDetails {

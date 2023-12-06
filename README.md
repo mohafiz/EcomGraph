@@ -30,6 +30,14 @@ Checkout process: create an order, calculate total price, proceed to checkout
 Orders history.
 </li>
 
+<li>
+Product Reviews and Ratings.
+</li>
+
+<li>
+Wishlist.
+</li>
+
 </ul>
 
 ## Future work
@@ -37,11 +45,11 @@ Orders history.
 <ul>
 
 <li>
-Product Reviews and Ratings.
+~~Product Reviews and Ratings.~~
 </li>
 
 <li>
-Wishlist.
+~~Wishlist.~~
 </li>
 
 <li>
