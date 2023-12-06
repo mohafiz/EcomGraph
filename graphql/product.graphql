@@ -18,6 +18,11 @@ extend type Mutation {
     shipping: ShippingInfo!
     billing: BillingInfo!
   ): Result! @guard
+
+  rateProduct(
+    productId: ID! @rules(apply: ["exists:products,id"])
+    rating: Float @rules(apply: ["min:0.0", "max:5.0"])
+  ): Result! @guard
 }
 
 input OrderDetails {
@@ -47,6 +52,8 @@ type Product {
   photo: String!
   stock: Int!
   description: String
+  rating: Float
+  raters: Int
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -57,4 +64,6 @@ type Order {
   payed: Boolean
   totalPrice: String
   user: User @belongsTo
+  created_at: DateTime!
+  updated_at: DateTime!
 }
