@@ -45,14 +45,6 @@ Wishlist.
 <ul>
 
 <li>
-~~Product Reviews and Ratings.~~
-</li>
-
-<li>
-~~Wishlist.~~
-</li>
-
-<li>
 Promotions and Discounts.
 </li>
 
