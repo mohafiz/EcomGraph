@@ -21,7 +21,12 @@ extend type Mutation {
 
   rateProduct(
     productId: ID! @rules(apply: ["exists:products,id"])
-    rating: Float @rules(apply: ["min:0.0", "max:5.0"])
+    rating: Float! @rules(apply: ["min:0.0", "max:5.0"])
+  ): Result! @guard
+
+  writeReview(
+    productId: ID! @rules(apply: ["exists:products,id"])
+    review: String!
   ): Result! @guard
 }
 
@@ -54,8 +59,14 @@ type Product {
   description: String
   rating: Float
   raters: Int
+  reviews: [Review] @hasMany(type: PAGINATOR)
   created_at: DateTime!
   updated_at: DateTime!
+}
+
+type Review {
+  user: User
+  review: String
 }
 
 type Order {
