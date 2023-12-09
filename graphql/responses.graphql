@@ -9,5 +9,11 @@ type UserData {
     token: String
 }
 
+type ProductData {
+    success: Boolean!
+    product: Product!
+}
+
 union LoginResult = UserData | Result
 union RegisterResult = UserData | Result
+union ProductOperationResult = ProductData | Result

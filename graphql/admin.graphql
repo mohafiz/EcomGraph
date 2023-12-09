@@ -1,0 +1,28 @@
+extend type Mutation {
+
+    adminLogin(email: String!, password: String!): LoginResult!
+
+    createProduct(
+        name: String!
+        price: String!
+        stock: Int!
+        description: String!
+    ): ProductOperationResult! @guard @can(ability: "create", model: "Product")
+
+    uploadProductPhoto(
+        productId: ID! @rules(apply: ["exists:products,id"])
+        photo: Upload! @rules(apply: ["image"])
+    ): ProductOperationResult! @guard @can(ability: "upload", model: "Product")
+
+    updateProduct(
+        productId: ID! @rules(apply: ["exists:products,id"])
+        name: String
+        price: String
+        stock: Int
+        description: String
+    ): ProductOperationResult! @can(ability: "update", model: "Product")
+
+    deleteProduct(
+        productId: ID! @rules(apply: ["exists:products,id"])
+    ): Result! @can(ability: "delete", model: "Product")
+}
