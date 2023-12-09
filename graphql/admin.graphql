@@ -48,6 +48,10 @@ extend type Mutation {
     ): Promo @can(ability: "delete", model: "Promo") @delete
 }
 
+extend type Query {
+    promos: [Promo!]! @paginate(defaultCount: 10) @can(ability: "viewAny")
+}
+
 type Promo {
     id: ID!
     code: String

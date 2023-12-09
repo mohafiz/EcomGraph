@@ -9,6 +9,14 @@ use Illuminate\Auth\Access\Response;
 class PromoPolicy
 {
     /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->role == 1;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
