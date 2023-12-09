@@ -14,6 +14,12 @@ type ProductData {
     product: Product!
 }
 
+type PromoData {
+    success: Boolean!
+    promo: Promo!
+}
+
 union LoginResult = UserData | Result
 union RegisterResult = UserData | Result
 union ProductOperationResult = ProductData | Result
+union PromoOperationResult = PromoData | Result

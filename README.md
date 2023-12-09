@@ -38,15 +38,19 @@ Product Reviews and Ratings.
 Wishlist.
 </li>
 
+<li>
+Admin product management.
+</li>
+
+<li>
+Promotions and Discounts.
+</li>
+
 </ul>
 
 ## Future work
 
 <ul>
-
-<li>
-Promotions and Discounts.
-</li>
 
 <li>
 Notifications.

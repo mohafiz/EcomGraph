@@ -25,4 +25,35 @@ extend type Mutation {
     deleteProduct(
         productId: ID! @rules(apply: ["exists:products,id"])
     ): Result! @can(ability: "delete", model: "Product")
+
+    createPromo(
+        discountType: String! @rules(apply: ["in:percentage,fixed"])
+        discount: String!
+        minimumTotal: String!
+        startDate: String! @rules(apply: ["date_format:d-m-Y"])
+        endDate: String! @rules(apply: ["date_format:d-m-Y"])
+    ): PromoOperationResult! @can(ability: "create", model: "Promo")
+
+    updatePromo (
+        promoId: ID! @rules(apply: ["exists:promos,id"])
+        discountType: String @rules(apply: ["in:percentage,fixed"])
+        discount: String
+        minimumTotal: String
+        startDate: String @rules(apply: ["date_format:d-m-Y"])
+        endDate: String @rules(apply: ["date_format:d-m-Y"])
+    ): PromoOperationResult! @can(ability: "update", model: "Promo")
+
+    deletePromo(
+        id: ID! @eq @rules(apply: ["exists:promos,id"])
+    ): Promo @can(ability: "delete", model: "Promo") @delete
+}
+
+type Promo {
+    id: ID!
+    code: String
+    discountType: String
+    discount: String
+    minimumTotal: String
+    startDate: String
+    endDate: String
 }

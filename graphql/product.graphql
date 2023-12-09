@@ -11,7 +11,7 @@ extend type Mutation {
   addToCart(id: ID! @eq): Result! @guard
   removeFromCart(id: ID! @eq): Result! @guard
 
-  createOrder(products: [OrderDetails!]): Order! @guard
+  createOrder(products: [OrderDetails!], promoCode: String): Order! @guard
 
   checkout(
     orderId: ID!
@@ -34,8 +34,8 @@ extend type Mutation {
 }
 
 input OrderDetails {
-  productId: ID
-  quantity: Int
+  productId: ID!
+  quantity: Int!
 }
 
 input ShippingInfo {

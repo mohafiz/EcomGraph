@@ -4,8 +4,10 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Promo;
 use App\Models\User;
 use App\Traits\ResponseTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -27,11 +29,17 @@ final class CreateOrder
             $totalPrice = 0;
             foreach ($orderDetails as $product)
                 $totalPrice += (Product::find($product['productId'])->price * $product['quantity']);
+
+            if (array_key_exists('promoCode', $args))
+                $totalPrice = $this->applyPromoCode($totalPrice, $args['promoCode']);
             
-            $order = Order::create(['user_id'  => auth('sanctum')->id(), 'totalPrice' => $totalPrice]);
+            $order = Order::create(['user_id' => auth('sanctum')->id(), 'totalPrice' => $totalPrice]);
 
             foreach ($orderDetails as $product)
                 $order->products()->attach($product['productId'], ['quantity' => $product['quantity']]);
+
+            $user = User::find(auth('sanctum')->id());
+            $user->cart()->detach();
 
             DB::commit();
             return $order;
@@ -42,5 +50,26 @@ final class CreateOrder
 
             return $this->serverError();
         }
+    }
+
+    private function applyPromoCode($totalPrice, $promoCode)
+    {
+        $promo = Promo::where('code', $promoCode)->first();
+
+        if (!$promo)
+            return $totalPrice;
+
+        $now = Carbon::now();
+        if ($now->lt($promo->startDate) || $now->gt($promo->endDate))
+            return $totalPrice;
+
+        if ($totalPrice < $promo->minimumTotal)
+            return $totalPrice;
+
+        if ($promo->discountType == 'percentage')
+            return $totalPrice - ($totalPrice * ($promo->discount / 100));
+
+        if ($promo->discountType == 'fixed')
+            return $totalPrice - $promo->discount;
     }
 }
