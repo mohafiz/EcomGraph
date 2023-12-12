@@ -75,7 +75,7 @@ type Review {
 type Order {
   id: ID
   products: [Product!] @belongsToMany
-  payed: Boolean
+  status: Status @belongsTo
   totalPrice: String
   user: User @belongsTo
   created_at: DateTime!

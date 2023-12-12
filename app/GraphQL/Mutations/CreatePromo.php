@@ -3,6 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Promo;
+use App\Models\User;
+use App\Notifications\NewPromo;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
 
@@ -27,6 +29,13 @@ final class CreatePromo
                 'startDate' => $args['startDate'],
                 'endDate' => $args['endDate']
             ]);
+
+            $recepients = User::whereNotNull('chat_id')->get();
+
+            foreach ($recepients as $recepient) {
+                if ($recepient->chat_id)
+                    $recepient->notify(new NewPromo($promo));
+            }
 
             return [
                 '__typename' => 'PromoData',

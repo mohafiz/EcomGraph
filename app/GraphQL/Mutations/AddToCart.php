@@ -21,7 +21,7 @@ final class AddToCart
             $product = Product::find($args['id']);
 
             if ($product->stock == 0)
-                return $this->badRequest('Stock is 0 right now !');
+                return $this->badRequest('This product is out of stock!');
 
             $user = User::find(auth('sanctum')->id());
 

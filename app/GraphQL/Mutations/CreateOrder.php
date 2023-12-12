@@ -5,7 +5,9 @@ namespace App\GraphQL\Mutations;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Promo;
+use App\Models\Status;
 use App\Models\User;
+use App\Notifications\OrderPlaced;
 use App\Traits\ResponseTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -33,13 +35,16 @@ final class CreateOrder
             if (array_key_exists('promoCode', $args))
                 $totalPrice = $this->applyPromoCode($totalPrice, $args['promoCode']);
             
-            $order = Order::create(['user_id' => auth('sanctum')->id(), 'totalPrice' => $totalPrice]);
+            $status = Status::firstOrCreate(['name' => 'pending']);
+            $order  = Order::create(['user_id' => auth('sanctum')->id(), 'totalPrice' => $totalPrice, 'status_id' => $status->id]);
 
             foreach ($orderDetails as $product)
                 $order->products()->attach($product['productId'], ['quantity' => $product['quantity']]);
 
             $user = User::find(auth('sanctum')->id());
             $user->cart()->detach();
+
+            $user->notify(new OrderPlaced($order));
 
             DB::commit();
             return $order;

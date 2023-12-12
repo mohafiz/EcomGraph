@@ -2,11 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\User;
+use App\Models\Order;
+use App\Notifications\OrderStatusUpdated;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
 
-final class VerifyAccount
+final class UpdateOrderStatus
 {
     use ResponseTrait;
 
@@ -17,17 +18,17 @@ final class VerifyAccount
     public function __invoke($_, array $args)
     {
         try {
-            $user = User::where('email', $args['email'])->first();
+            $order = Order::find($args['orderId']);
+            $order->update(['status_id' => $args['statusId']]);
 
-            if ($user->code !== $args['code'])
-                return $this->badRequest('wrong verification code');
-
-            $user->update(['verified' => true]);
+            $user = $order->user;
+            $user->notify(new OrderStatusUpdated($order->id, $order->status->name));
+            
             return $this->success();
 
         } catch (\Throwable $th) {
             Log::error($th);
-            return $this->serverError('Result');
+            return $this->serverError();
         }
     }
 }

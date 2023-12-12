@@ -26,6 +26,9 @@ final class Login
             if (!$user->verified)
                 return $this->badRequest('your account is not verified', 'Result');
 
+            if (!$user->subscribed)
+                return $this->badRequest('you are not subscribed to our telegram bot, subscribe here @ecomgraphbot', 'Result');
+
             $token = $user->createToken('access_token')->plainTextToken;
 
             return [

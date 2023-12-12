@@ -16,7 +16,7 @@ class Order extends Model
         'shippingDetails',
         'billingDetails',
         'totalPrice',
-        'payed',
+        'status_id'
     ];
 
     protected $casts = [
@@ -33,5 +33,10 @@ class Order extends Model
     function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity');    
+    }
+
+    function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);    
     }
 }

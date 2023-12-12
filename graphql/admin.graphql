@@ -46,10 +46,27 @@ extend type Mutation {
     deletePromo(
         id: ID! @eq @rules(apply: ["exists:promos,id"])
     ): Promo @can(ability: "delete", model: "Promo") @delete
+
+    updateOrderStatus(
+        orderId: ID! @rules(apply: ["exists:orders,id"])
+        statusId: ID! @rules(apply: ["exists:statuses,id"])
+    ): Result! @can(ability: "updateStatus", model: "Order")
+
+    restockProduct(
+        productId: ID! @rules(apply: ["exists:products,id"])
+        stock: Int!
+    ): Result! @can(ability: "restock", model: "Product")
 }
 
 extend type Query {
-    promos: [Promo!]! @paginate(defaultCount: 10) @can(ability: "viewAny")
+    promos: [Promo!]! @paginate(defaultCount: 10) @guard @can(ability: "viewAny")
+
+    orders(
+        orderBy: _ @orderBy(columns: ["id", "price", "stock", "created_at"])
+    ): [Order!]! @paginate(defaultCount: 10) @guard @can(ability: "ViewAll")
+
+    status: [Status!]! @guard @all @can(ability: "viewAny")
+    outOfStockProducts: [Product]! @guard @can(ability: "getOutOfStock")
 }
 
 type Promo {
@@ -60,4 +77,9 @@ type Promo {
     minimumTotal: String
     startDate: String
     endDate: String
+}
+
+type Status {
+    id: ID!
+    name: String
 }

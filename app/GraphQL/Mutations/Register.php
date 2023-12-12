@@ -22,9 +22,36 @@ final class Register
         try {
             $hashedPassword = Hash::make($args['password']);
             
-            // create a random verification code
-            $code = str_pad((string) rand(0000, 9999), 4, '0', STR_PAD_LEFT);
+            if (array_key_exists('telegram_id', $args)) {
 
+                $telegramId = $args['telegram_id'];
+                $user = User::where('chat_id', $telegramId)->first();
+
+                if (!$user)
+                    return $this->badRequest('Your telegram ID is not correct', 'Result');
+
+                if ($user->name != null && $user->email != null)
+                    return $this->badRequest('You have already registered with us with the email ' . $user->email, 'Result');
+
+                $code = str_pad((string) rand(0000, 9999), 4, '0', STR_PAD_LEFT);
+                $user->update([
+                    'name'       => $args['name'],
+                    'email'      => $args['email'],
+                    'password'   => $hashedPassword,
+                    'code'       => $code,
+                    'registered' => true
+                ]);
+
+                Mail::to($user->email)->send(new VerificationCodeMail($code));
+
+                return [
+                    '__typename' => 'UserData',
+                    'success' => true,
+                    'user' => $user,
+                ];
+            }
+
+            $code = str_pad((string) rand(0000, 9999), 4, '0', STR_PAD_LEFT);
             $data = [
                 'name'     => $args['name'],
                 'email'    => $args['email'],
@@ -35,14 +62,8 @@ final class Register
 
             $user = User::create($data);
 
-            // send verification code
-            Mail::to($user)->send(new VerificationCodeMail($code));
-            
-            return [
-                '__typename' => 'UserData',
-                'success' => true,
-                'user' => $user,
-            ];
+            Mail::to($user->email)->send(new VerificationCodeMail($code));
+            return $this->success('Result');
 
         } catch (\Throwable $th) {
             Log::error($th);

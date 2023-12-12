@@ -4,10 +4,11 @@ extend type Mutation {
         email: String! @rules(apply: ["email", "unique:users,email"])
         password: String! @rules(apply: ["min:8", "confirmed"])
         password_confirmation: String!
+        telegram_id: String
     ): RegisterResult!
 
     verifyAccount(
-        id: ID! @rules(apply: ["exists:users,id"])
+        email: String! @rules(apply: ["email", "exists:users,email"])
         code: String! @rules(apply: ["min:4,max:4"])
     ): Result!
 

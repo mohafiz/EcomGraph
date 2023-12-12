@@ -26,7 +26,10 @@ class User extends Authenticatable
         'role',
         'avatar',
         'verified',
-        'code'
+        'chat_id',
+        'code',
+        'subscribed',
+        'registered'
     ];
 
     /**
@@ -47,7 +50,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'verified' => 'boolean'
+        'verified' => 'boolean',
+        'subscribed' => 'boolean',
+        'registered' => 'boolean'
     ];
 
     public function cart(): BelongsToMany
