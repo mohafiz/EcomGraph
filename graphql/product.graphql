@@ -5,6 +5,9 @@ extend type Query {
     ): [Product] @guard @paginate(defaultCount: 10)
 
     product( id: ID @eq ): Product @guard @find
+
+    categories: [Category]! @guard @paginate(defaultCount: 10)
+    category( id: ID! @eq ): Category @guard @find
 }
 
 extend type Mutation {
@@ -55,9 +58,10 @@ input BillingInfo {
 
 type Product {
   id: ID!
+  category: Category @belongsTo
   name: String!
   price: String!
-  photo: String!
+  photo: String
   stock: Int!
   description: String
   rating: Float

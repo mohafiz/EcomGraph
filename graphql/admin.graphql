@@ -3,6 +3,7 @@ extend type Mutation {
     adminLogin(email: String!, password: String!): LoginResult!
 
     createProduct(
+        category_id: ID! @rules(apply: ["exists:categories,id"])
         name: String!
         price: String!
         stock: Int!
@@ -56,6 +57,19 @@ extend type Mutation {
         productId: ID! @rules(apply: ["exists:products,id"])
         stock: Int!
     ): Result! @can(ability: "restock", model: "Product")
+
+    createCategory(
+        name: String!
+        photo: Upload! @rules(apply: ["image"])
+    ): Result! @can(ability: "create", model: "Category")
+
+    updateCategory(
+        categoryId: ID! @rules(apply: ["exists:categories,id"])
+        name: String
+        photo: Upload @rules(apply: ["image"])
+    ): Result! @can(ability: "update", model: "Category")
+
+    deleteCategory(categoryId: ID! @eq): Category @delete @can(ability: "delete")
 }
 
 extend type Query {
@@ -82,4 +96,11 @@ type Promo {
 type Status {
     id: ID!
     name: String
+}
+
+type Category {
+    id: ID!
+    name: String
+    photo: String
+    products: [Product] @hasMany
 }
