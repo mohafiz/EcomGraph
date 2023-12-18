@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
 class OrderPayed extends Notification
@@ -58,8 +59,10 @@ class OrderPayed extends Notification
 
     public function toTelegram($notifiable)
     {
+        Lang::setLocale($notifiable->default_language);
+        
         return TelegramMessage::create()
             ->to($notifiable->chat_id)
-            ->content("Hello there!\nYour have *PAID* for your order, your order id is: " . $this->order->id);
+            ->content(Lang::get('messages.order_payed', ['orderId' => $this->order->id]));
     }
 }

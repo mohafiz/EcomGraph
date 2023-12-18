@@ -1,4 +1,5 @@
 extend type Query {
+
     products(
       name: String @where(operator: "like")
       orderBy: _ @orderBy(columns: ["id", "price", "stock", "created_at"])
@@ -8,80 +9,18 @@ extend type Query {
 
     categories: [Category]! @guard @paginate(defaultCount: 10)
     category( id: ID! @eq ): Category @guard @find
+
 }
 
 extend type Mutation {
-  addToCart(id: ID! @eq): Result! @guard
-  removeFromCart(id: ID! @eq): Result! @guard
 
-  createOrder(products: [OrderDetails!], promoCode: String): Order! @guard
+  addToCart(input: AddToCartInput!): Result! @guard
+  removeFromCart(input: RemoveFromCartInput!): Result! @guard
+  createOrder(input: CreateOrderInput!): Order! @guard
+  checkout(input: CheckoutInput!): Result! @guard
+  rateProduct(input: RateProductInput!): Result! @guard
+  writeReview(input: WriteReviewInput!): Result! @guard
+  addToWishlist(input: AddToWishlistInput!): Result! @guard
+  removeFromWishlist(input: RemoveFromWishlistInput!): Result! @guard
 
-  checkout(
-    orderId: ID!
-    shipping: ShippingInfo!
-    billing: BillingInfo!
-  ): Result! @guard
-
-  rateProduct(
-    productId: ID! @rules(apply: ["exists:products,id"])
-    rating: Float! @rules(apply: ["min:0.0", "max:5.0"])
-  ): Result! @guard
-
-  writeReview(
-    productId: ID! @rules(apply: ["exists:products,id"])
-    review: String!
-  ): Result! @guard
-
-  addToWishlist(productId: ID! @rules(apply: ["exists:products,id"])): Result! @guard
-  removeFromWishlist(productId: ID! @rules(apply: ["exists:products,id"])): Result! @guard
-}
-
-input OrderDetails {
-  productId: ID!
-  quantity: Int!
-}
-
-input ShippingInfo {
-  fullname: String!
-  shippingAddress: String!
-  email: String! @rules(apply: ["email"])
-  phone: String! @rules(apply: ["numeric"])
-}
-
-input BillingInfo {
-  cardHolder: String!
-  cardNumber: String! @rules(apply: ["string", "numeric"])
-  expMonth: String! @rules(apply: ["string", "numeric"])
-  expYear: String! @rules(apply: ["string", "numeric"])
-  CVV: String! @rules(apply: ["string", "numeric"])
-}
-
-type Product {
-  id: ID!
-  category: Category @belongsTo
-  name: String!
-  price: String!
-  photo: String
-  stock: Int!
-  description: String
-  rating: Float
-  raters: Int
-  reviews: [Review] @hasMany(type: PAGINATOR)
-  created_at: DateTime!
-  updated_at: DateTime!
-}
-
-type Review {
-  user: User
-  review: String
-}
-
-type Order {
-  id: ID
-  products: [Product!] @belongsToMany
-  status: Status @belongsTo
-  totalPrice: String
-  user: User @belongsTo
-  created_at: DateTime!
-  updated_at: DateTime!
 }

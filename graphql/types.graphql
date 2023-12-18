@@ -1,0 +1,79 @@
+type Promo {
+    id: ID!
+    code: String
+    discountType: String
+    discount: String
+    minimumTotal: String
+    startDate: String
+    endDate: String
+}
+
+type Status {
+    id: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+}
+
+type Category {
+    id: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+    photo: String
+    products: [Product] @hasMany
+}
+
+type Product {
+  id: ID!
+  category: Category @belongsTo
+  name: String!
+  name_ar: String
+  name_es: String
+  name_fr: String
+  price: String!
+  photo: String
+  stock: Int!
+  description: String
+  description_ar: String
+  description_es: String
+  description_fr: String
+  rating: Float
+  raters: Int
+  reviews: [Review] @hasMany(type: PAGINATOR)
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type Review {
+  user: User
+  review: String
+}
+
+type Order {
+  id: ID
+  products: [Product!] @belongsToMany
+  status: Status @belongsTo
+  totalPrice: String
+  user: User @belongsTo
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    role: Int!
+    avatar: String
+    verified: Boolean!
+    default_language: String
+    created_at: DateTime!
+    updated_at: DateTime!
+    cart: [Product!]! @belongsToMany(relation: "cart")
+    wishlist: [Product!]! @belongsToMany(relation: "wishlist")
+    orders: [Order!]! @hasMany
+}

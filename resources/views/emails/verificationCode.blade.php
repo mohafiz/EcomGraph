@@ -1,3 +1,3 @@
 <p>
-    Your verification code is {{ $v_code }}
+    __{{ __('messages.verification_code_mail', ['code' => $v_code]) }}
 </p>

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'This_product_is_out_of_stock!' => 'هذا المنتج غير متوفر حاليًا!',
+    'Product_already_added_to_your_cart' => 'المنتج مضاف بالفعل إلى سلة التسوق الخاصة بك',
+    'Operation_done_successfully' => 'تمت العملية بنجاح',
+    'Product_already_added_to_your_wishlist' => 'المنتج مضاف بالفعل إلى قائمة رغباتك',
+    'check_your_email_and_password' => 'تحقق من بريدك الإلكتروني وكلمة المرور',
+    'you_are_not_authorized_to_do_this_action' => 'غير مسموح لك بأداء هذا الإجراء',
+    'Server_Error' => 'خطأ في الخادم',
+    'order_not_found' => 'الطلب غير موجود',
+    'this_order_has_already_payed_for' => 'تم دفع هذا الطلب بالفعل',
+    'your_account_is_not_verified' => 'حسابك غير مفعل',
+    'you_are_not_subscribed_to_our_telegram_bot,_subscribe_here_@ecomgraphbot' => 'لم تشترك بعد في روبوت التليجرام الخاص بنا، اشترك هنا @ecomgraphbot',
+    'Your_telegram_ID_is_not_correct' => 'رقم التليجرام الخاص بك غير صحيح',
+    'You_have_already_registered_with_us_with_this_email' => 'لقد قمت بالفعل بالتسجيل معنا باستخدام هذا البريد الإلكتروني',
+    'You_didn\'t_add_this_product_to_your_cart' => 'لم تقم بإضافة هذا المنتج إلى سلة التسوق الخاصة بك',
+    'You_didn\'t_add_this_product_to_your_wishlist' => 'لم تقم بإضافة هذا المنتج إلى قائمة رغباتك',
+    'wrong_verification_code' => 'رمز التحقق غير صحيح',
+    'verification_code_mail' => 'رمز التحقق الخاص بك هو :code',
+    'new_promo' => '*عرض جديد*\nتمت إضافة عرض جديد بخصم :discount، لاستخدامه، استخدم الرمز *:code*\n سيكون قابلًا للاستخدام لمدة شهر',
+    'order_payed' => 'مرحبًا!\nلقد قمت بـ *الدفع* لطلبك، رقم طلبك هو: :orderId',
+    'order_placed' => 'لقد قمت بوضع طلب بنجاح!\nإليك تفاصيل طلبك\n\n :orderDetails \n\n السعر الإجمالي هو :totalPrice',
+    'order_status_updated' => '*تحديث جديد للطلب!*\nتم تحديث حالة طلبك بالرقم :orderId إلى :newStatus',
+    'product_restocked' => '*أخبار رائعة!*\nتمت إعادة توفير المنتج الذي تمت إضافته إلى قائمة رغباتك: :productName!',
+];

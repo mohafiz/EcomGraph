@@ -23,6 +23,9 @@ final class UpdateCategory
 
             $category->update([
                 'name' => array_key_exists('name', $args) ? $args['name'] : $category->name,
+                'name_ar' => array_key_exists('name_ar', $args) ? $args['name_ar'] : $category->name_ar,
+                'name_es' => array_key_exists('name_es', $args) ? $args['name_es'] : $category->name_es,
+                'name_fr' => array_key_exists('name_rf', $args) ? $args['name_fr'] : $category->name_fr,
             ]);
 
             if (array_key_exists('photo', $args))

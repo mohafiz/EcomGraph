@@ -54,6 +54,10 @@ Notifications (via Telegram): For this to work, I have used ngrok to publicly ex
 Categories
 </li>
 
+<li>
+Internationalization (part I): Added support for 4 languages (English, Arabic, Spanish, and French), with English being the default.
+</li>
+
 </ul>
 
 ## Future work

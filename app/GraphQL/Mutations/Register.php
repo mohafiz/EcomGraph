@@ -31,7 +31,7 @@ final class Register
                     return $this->badRequest('Your telegram ID is not correct', 'Result');
 
                 if ($user->name != null && $user->email != null)
-                    return $this->badRequest('You have already registered with us with the email ' . $user->email, 'Result');
+                    return $this->badRequest('You have already registered with us with this email', 'Result');
 
                 $code = str_pad((string) rand(0000, 9999), 4, '0', STR_PAD_LEFT);
                 $user->update([

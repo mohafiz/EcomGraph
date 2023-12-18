@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
 class NewPromo extends Notification
@@ -52,9 +53,10 @@ class NewPromo extends Notification
     public function toTelegram($notifiable)
     {
         $discount = $this->promo->discountType == "percentage" ? "50%" : "$50";
+        Lang::setLocale($notifiable->default_language);
 
         return TelegramMessage::create()
             ->to($notifiable->chat_id)
-            ->content("*New Promo*\nA new promo has been added with a discount of $discount, to use it, use the code *" . $this->promo->code . "*\n It will be usable for a period of month");
+            ->content(Lang::get('messages.new_promo', ['discount' => $discount, 'code' => $this->promo->code]));
     }
 }

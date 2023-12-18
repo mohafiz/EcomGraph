@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'This_product_is_out_of_stock!' => '¡Este producto está fuera de stock!',
+    'Product_already_added_to_your_cart' => 'Producto ya añadido a tu carrito',
+    'Operation_done_successfully' => 'Operación realizada con éxito',
+    'Product_already_added_to_your_wishlist' => 'Producto ya añadido a tu lista de deseos',
+    'check_your_email_and_password' => 'Verifica tu correo electrónico y contraseña',
+    'you_are_not_authorized_to_do_this_action' => 'No estás autorizado para realizar esta acción',
+    'Server_Error' => 'Error del servidor',
+    'order_not_found' => 'Pedido no encontrado',
+    'this_order_has_already_payed_for' => 'Este pedido ya ha sido pagado',
+    'your_account_is_not_verified' => 'Tu cuenta no está verificada',
+    'you_are_not_subscribed_to_our_telegram_bot,_subscribe_here_@ecomgraphbot' => 'No estás suscrito a nuestro bot de Telegram, suscríbete aquí @ecomgraphbot',
+    'Your_telegram_ID_is_not_correct' => 'Tu ID de Telegram no es correcto',
+    'You_have_already_registered_with_us_with_this_email' => 'Ya te has registrado con nosotros con este correo electrónico',
+    'You_didn\'t_add_this_product_to_your_cart' => 'No has añadido este producto a tu carrito',
+    'You_didn\'t_add_this_product_to_your_wishlist' => 'No has añadido este producto a tu lista de deseos',
+    'wrong_verification_code' => 'Código de verificación incorrecto',
+    'verification_code_mail' => 'Tu código de verificación es :code',
+    'new_promo' => '*¡Nuevo descuento!*\nSe ha añadido un nuevo descuento con un descuento de :discount, para usarlo, utiliza el código *:code*\n Será válido durante un mes',
+    'order_payed' => '¡Hola!\nHas *PAGADO* por tu pedido, tu ID de pedido es: :orderId',
+    'order_placed' => 'Has realizado un pedido con éxito!\nAquí están los detalles de tu pedido\n\n :orderDetails \n\n El precio total es :totalPrice',
+    'order_status_updated' => '*¡Nueva actualización de pedido!*\nTu pedido con el ID :orderId ahora está :newStatus',
+    'product_restocked' => '*¡Buenas noticias!*\n¡Tu producto de la lista de deseos :productName ha sido repuesto!',  
+];

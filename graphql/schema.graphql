@@ -7,3 +7,5 @@ scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload
 #import product.graphql
 #import responses.graphql
 #import admin.graphql
+#import inputs.graphql
+#import types.graphql

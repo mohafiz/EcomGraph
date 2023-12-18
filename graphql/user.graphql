@@ -1,4 +1,5 @@
 type Query {
+
     user(id: ID @eq): User @find
 
     users(
@@ -7,30 +8,13 @@ type Query {
     ): [User!]! @paginate(defaultCount: 10)
 
     profile: User! @guard @auth
+
 }
 
 type Mutation {
-  updateUser(
-    name: String,
-    email: String @rules(apply: ["email", "unique:users,email"]),
-    password: String @rules(apply: ["min:8", "confirmed"])
-    password_confirmation: String
-  ): Result! @guard
 
-  uploadAvatar(avatar: Upload!): User! @guard
-}
+  updateUser(input: UpdateUserInput!): Result! @guard
+  uploadAvatar(input: UploadAvatarInput!): User! @guard
+  setDefaultLanguage(input: SetDefaultLanguageInput!): Result! @guard
 
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    password: String!
-    role: Int!
-    avatar: String
-    verified: Boolean!
-    created_at: DateTime!
-    updated_at: DateTime!
-    cart: [Product!]! @belongsToMany(relation: "cart")
-    wishlist: [Product!]! @belongsToMany(relation: "wishlist")
-    orders: [Order!]! @hasMany
 }

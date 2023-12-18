@@ -17,7 +17,7 @@ class TelegramController extends Controller
         $chatId = $update['message']['chat']['id'];
 
         if ($message == '/start')
-            $this->sendMessage($chatId, "Hello there!\n Please use the /subscribe from the menu to subscribe yourself, or user /complete if you have already registered via the system. In either case, you will be able to receive your order status notifications here once you completed the process");
+            $this->sendMessage($chatId, "Hello there!\nPlease use the /subscribe from the menu to subscribe yourself, or use /complete if you have already registered via the system. In either case, you will be able to receive your order status notifications here once you completed the process");
 
         if ($message == '/subscribe') {
 

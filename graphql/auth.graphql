@@ -1,18 +1,8 @@
 extend type Mutation {
-    register(
-        name: String!
-        email: String! @rules(apply: ["email", "unique:users,email"])
-        password: String! @rules(apply: ["min:8", "confirmed"])
-        password_confirmation: String!
-        telegram_id: String
-    ): RegisterResult!
 
-    verifyAccount(
-        email: String! @rules(apply: ["email", "exists:users,email"])
-        code: String! @rules(apply: ["min:4,max:4"])
-    ): Result!
-
-    login(email: String!, password: String!): LoginResult!
-
+    register(input: RegisterInput!): RegisterResult!
+    verifyAccount(input: VerifyAccountInput!): Result!
+    login(input: LoginInput!): LoginResult!
     logout: Result @guard
+    
 }

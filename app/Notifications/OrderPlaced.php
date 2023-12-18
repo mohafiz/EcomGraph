@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
 class OrderPlaced extends Notification
@@ -58,6 +59,8 @@ class OrderPlaced extends Notification
 
     public function toTelegram($notifiable)
     {
+        Lang::setLocale($notifiable->default_language);
+        
         $data   = [];
         $order  = [];
 
@@ -78,6 +81,6 @@ class OrderPlaced extends Notification
 
         return TelegramMessage::create()
             ->to($notifiable->chat_id)
-            ->content("You have successfully placed an order!\nHere is your order details\n\n" . json_encode($data['order']) . "\n\n The total price is " . $data['total']);
+            ->content(Lang::get('messages.order_placed', ['orderDetails' => json_encode($data['order']), 'totalPrice' => $data['total']]))
     }
 }

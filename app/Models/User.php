@@ -29,7 +29,8 @@ class User extends Authenticatable
         'chat_id',
         'code',
         'subscribed',
-        'registered'
+        'registered',
+        'default_language'
     ];
 
     /**

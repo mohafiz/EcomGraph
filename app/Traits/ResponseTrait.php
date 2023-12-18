@@ -2,13 +2,23 @@
 
 namespace App\Traits;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Lang;
+
 trait ResponseTrait {
 
     public function success($typename = null, $message = null)
     {
+        if (auth('sanctum')->check())
+            Lang::setLocale(User::find(auth('sanctum')->id())->default_language);
+        else
+            Lang::setLocale('en');
+
+        $msg = $message ? Lang::get("messages." . str_replace(" ", "_", $message)) : null;
+
         $data = [
             'success' => true,
-            'message' => $message ?: 'Operation done successfully'
+            'message' => $msg ?: Lang::get('messages.Operation_done_successfully')
         ];
 
         if ($typename) $data['__typename'] = $typename;
@@ -18,9 +28,14 @@ trait ResponseTrait {
 
     function badRequest($message, $typename = null)
     {
+        if (auth('sanctum')->check())
+            Lang::setLocale(User::find(auth('sanctum')->id())->default_language);
+        else
+            Lang::setLocale('en');
+
         $data = [
             'success' => false,
-            'message' => $message
+            'message' => Lang::get("messages." . str_replace(" ", "_", $message))
         ];
 
         if ($typename) $data['__typename'] = $typename;
@@ -30,9 +45,14 @@ trait ResponseTrait {
 
     public function serverError($typename = null)
     {
+        if (auth('sanctum')->check())
+            Lang::setLocale(User::find(auth('sanctum')->id())->default_language);
+        else
+            Lang::setLocale('en');
+        
         $data = [
             'success'  => false,
-            'message'  => 'Server Error' 
+            'message'  => Lang::get('Server_Error')
         ];
 
         if ($typename) $data['__typename'] = $typename;

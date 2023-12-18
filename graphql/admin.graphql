@@ -1,78 +1,5 @@
-extend type Mutation {
-
-    adminLogin(email: String!, password: String!): LoginResult!
-
-    createProduct(
-        category_id: ID! @rules(apply: ["exists:categories,id"])
-        name: String!
-        price: String!
-        stock: Int!
-        description: String!
-    ): ProductOperationResult! @guard @can(ability: "create", model: "Product")
-
-    uploadProductPhoto(
-        productId: ID! @rules(apply: ["exists:products,id"])
-        photo: Upload! @rules(apply: ["image"])
-    ): ProductOperationResult! @guard @can(ability: "upload", model: "Product")
-
-    updateProduct(
-        productId: ID! @rules(apply: ["exists:products,id"])
-        name: String
-        price: String
-        stock: Int
-        description: String
-    ): ProductOperationResult! @can(ability: "update", model: "Product")
-
-    deleteProduct(
-        productId: ID! @rules(apply: ["exists:products,id"])
-    ): Result! @can(ability: "delete", model: "Product")
-
-    createPromo(
-        discountType: String! @rules(apply: ["in:percentage,fixed"])
-        discount: String!
-        minimumTotal: String!
-        startDate: String! @rules(apply: ["date_format:d-m-Y"])
-        endDate: String! @rules(apply: ["date_format:d-m-Y"])
-    ): PromoOperationResult! @can(ability: "create", model: "Promo")
-
-    updatePromo (
-        promoId: ID! @rules(apply: ["exists:promos,id"])
-        discountType: String @rules(apply: ["in:percentage,fixed"])
-        discount: String
-        minimumTotal: String
-        startDate: String @rules(apply: ["date_format:d-m-Y"])
-        endDate: String @rules(apply: ["date_format:d-m-Y"])
-    ): PromoOperationResult! @can(ability: "update", model: "Promo")
-
-    deletePromo(
-        id: ID! @eq @rules(apply: ["exists:promos,id"])
-    ): Promo @can(ability: "delete", model: "Promo") @delete
-
-    updateOrderStatus(
-        orderId: ID! @rules(apply: ["exists:orders,id"])
-        statusId: ID! @rules(apply: ["exists:statuses,id"])
-    ): Result! @can(ability: "updateStatus", model: "Order")
-
-    restockProduct(
-        productId: ID! @rules(apply: ["exists:products,id"])
-        stock: Int!
-    ): Result! @can(ability: "restock", model: "Product")
-
-    createCategory(
-        name: String!
-        photo: Upload! @rules(apply: ["image"])
-    ): Result! @can(ability: "create", model: "Category")
-
-    updateCategory(
-        categoryId: ID! @rules(apply: ["exists:categories,id"])
-        name: String
-        photo: Upload @rules(apply: ["image"])
-    ): Result! @can(ability: "update", model: "Category")
-
-    deleteCategory(categoryId: ID! @eq): Category @delete @can(ability: "delete")
-}
-
 extend type Query {
+
     promos: [Promo!]! @paginate(defaultCount: 10) @guard @can(ability: "viewAny")
 
     orders(
@@ -81,26 +8,23 @@ extend type Query {
 
     status: [Status!]! @guard @all @can(ability: "viewAny")
     outOfStockProducts: [Product]! @guard @can(ability: "getOutOfStock")
+
 }
 
-type Promo {
-    id: ID!
-    code: String
-    discountType: String
-    discount: String
-    minimumTotal: String
-    startDate: String
-    endDate: String
-}
+extend type Mutation {
 
-type Status {
-    id: ID!
-    name: String
-}
+    adminLogin(input: LoginInput!): LoginResult!
+    createProduct(input: CreateProductInput!): ProductOperationResult! @guard @can(ability: "create", model: "Product")
+    uploadProductPhoto(input: UploadProductPhotoInput!): ProductOperationResult! @guard @can(ability: "upload", model: "Product")
+    updateProduct(input: UpdateProductInput!): ProductOperationResult! @can(ability: "update", model: "Product")
+    deleteProduct(input: DeleteProductInput!): Result! @can(ability: "delete", model: "Product")
+    createPromo(input: CreatePromoInput!): PromoOperationResult! @can(ability: "create", model: "Promo")
+    updatePromo (input: UpdatePromoInput!): PromoOperationResult! @can(ability: "update", model: "Promo")
+    deletePromo(input: DeletePromoInput!): Promo @can(ability: "delete", model: "Promo") @delete
+    updateOrderStatus(input: UpdateOrderStatusInput!): Result! @can(ability: "updateStatus", model: "Order")
+    restockProduct(input: RestockProductInput!): Result! @can(ability: "restock", model: "Product")
+    createCategory(input: CreateCategoryInput!): Result! @can(ability: "create", model: "Category")
+    updateCategory(input: UpdateCategoryInput!): Result! @can(ability: "update", model: "Category")
+    deleteCategory(input: DeleteCategoryInput!): Category @delete @can(ability: "delete")
 
-type Category {
-    id: ID!
-    name: String
-    photo: String
-    products: [Product] @hasMany
 }

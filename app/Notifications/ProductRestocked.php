@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
 class ProductRestocked extends Notification
@@ -58,8 +59,10 @@ class ProductRestocked extends Notification
 
     public function toTelegram($notifiable)
     {
+        Lang::setLocale($notifiable->default_language);
+        
         return TelegramMessage::create()
             ->to($notifiable->chat_id)
-            ->content("*Great news!*\nYour wishlisted product " . $this->product->name . " has been restocked!");
+            ->content(Lang::get('messages.product_restocked', ['productName' => $this->product->name]));
     }
 }

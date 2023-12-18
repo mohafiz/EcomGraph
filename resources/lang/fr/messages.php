@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'This_product_is_out_of_stock!' => 'Ce produit est en rupture de stock !',
+    'Product_already_added_to_your_cart' => 'Produit déjà ajouté à votre panier',
+    'Operation_done_successfully' => 'Opération réalisée avec succès',
+    'Product_already_added_to_your_wishlist' => 'Produit déjà ajouté à votre liste de souhaits',
+    'check_your_email_and_password' => 'Vérifiez votre adresse e-mail et votre mot de passe',
+    'you_are_not_authorized_to_do_this_action' => 'Vous n\'êtes pas autorisé à effectuer cette action',
+    'Server_Error' => 'Erreur de serveur',
+    'order_not_found' => 'Commande non trouvée',
+    'this_order_has_already_payed_for' => 'Cette commande a déjà été payée',
+    'your_account_is_not_verified' => 'Votre compte n\'est pas vérifié',
+    'you_are_not_subscribed_to_our_telegram_bot,_subscribe_here_@ecomgraphbot' => 'Vous n\'êtes pas abonné à notre bot Telegram, abonnez-vous ici @ecomgraphbot',
+    'Your_telegram_ID_is_not_correct' => 'Votre ID Telegram n\'est pas correct',
+    'You_have_already_registered_with_us_with_this_email' => 'Vous vous êtes déjà inscrit avec cette adresse e-mail',
+    'You_didn\'t_add_this_product_to_your_cart' => 'Vous n\'avez pas ajouté ce produit à votre panier',
+    'You_didn\'t_add_this_product_to_your_wishlist' => 'Vous n\'avez pas ajouté ce produit à votre liste de souhaits',
+    'wrong_verification_code' => 'Code de vérification incorrect',
+    'verification_code_mail' => 'Votre code de vérification est :code',
+    'new_promo' => '*Nouvelle promotion*\nUne nouvelle promotion a été ajoutée avec une remise de :discount, pour l\'utiliser, utilisez le code *:code*\n Il sera utilisable pendant un mois',
+    'order_payed' => 'Bonjour!\nVous avez *PAYÉ* pour votre commande, votre ID de commande est :orderId',
+    'order_placed' => 'Vous avez passé avec succès une commande!\nVoici les détails de votre commande\n\n :orderDetails \n\n Le prix total est :totalPrice',
+    'order_status_updated' => '*Nouvelle mise à jour de commande!*\nVotre commande avec l\'ID :orderId est maintenant :newStatus',
+    'product_restocked' => '*Bonne nouvelle!*\nVotre produit enregistré dans votre liste de souhaits :productName a été réapprovisionné!',
+];

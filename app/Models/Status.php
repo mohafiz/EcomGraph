@@ -10,5 +10,10 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'name_ar',
+        'name_es',
+        'name_fr',
+    ];
 }

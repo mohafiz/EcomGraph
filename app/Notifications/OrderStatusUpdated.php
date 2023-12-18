@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
 class OrderStatusUpdated extends Notification
@@ -59,8 +60,10 @@ class OrderStatusUpdated extends Notification
 
     public function toTelegram($notifiable)
     {
+        Lang::setLocale($notifiable->default_language);
+        
         return TelegramMessage::create()
             ->to($notifiable->chat_id)
-            ->content("*New order update!*\nYour order with the id $this->id is now $this->status");
+            ->content(Lang::get('order_status_updated', ['orderId' => $this->id, 'newStatus' => $this->status]))
     }
 }

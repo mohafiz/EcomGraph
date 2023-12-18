@@ -1,0 +1,178 @@
+input LoginInput @validator {
+    email: String!
+    password: String!
+}
+
+input CreateProductInput @validator {
+    category_id: ID!
+    name: String!
+    name_ar: String
+    name_es: String
+    name_fr: String
+    price: String!
+    stock: Int!
+    description: String!
+    description_ar: String
+    description_es: String
+    description_fr: String
+}
+
+input UploadProductPhotoInput @validator {
+    productId: ID!
+    photo: Upload!
+}
+
+input UpdateProductInput @validator {
+    productId: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+    price: String
+    stock: Int
+    description: String
+    description_ar: String
+    description_es: String
+    description_fr: String
+}
+
+input DeleteProductInput @validator {
+    productId: ID!
+}
+
+input CreatePromoInput @validator {
+    discountType: String!
+    discount: String!
+    minimumTotal: String!
+    startDate: String!
+    endDate: String!
+}
+
+input UpdatePromoInput @validator {
+    promoId: ID!
+    discountType: String
+    discount: String
+    minimumTotal: String
+    startDate: String
+    endDate: String
+}
+
+input DeletePromoInput @validator {
+    id: ID! @eq
+}
+
+input UpdateOrderStatusInput @validator {
+    orderId: ID!
+    statusId: ID!
+}
+
+input RestockProductInput @validator {
+    productId: ID!
+    stock: Int!
+}
+
+input CreateCategoryInput @validator {
+    name: String!
+    name_ar: String
+    name_es: String
+    name_fr: String
+    photo: Upload!
+}
+
+input UpdateCategoryInput @validator {
+    categoryId: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+    photo: Upload
+}
+
+input DeleteCategoryInput @validator {
+    categoryId: ID! @eq
+}
+
+input RegisterInput @validator {
+    name: String!
+    email: String!
+    password: String!
+    password_confirmation: String!
+    telegram_id: String
+}
+
+input VerifyAccountInput @validator {
+    email: String!
+    code: String!
+}
+
+input AddToCartInput @validator {
+    id: ID!
+}
+
+input RemoveFromCartInput @validator {
+    id: ID!
+}
+
+input OrderDetails {
+  productId: ID!
+  quantity: Int!
+}
+
+input CreateOrderInput @validator {
+    details: [OrderDetails!]!
+    promoCode: String
+}
+
+input ShippingInfo {
+  fullname: String!
+  shippingAddress: String!
+  email: String!
+  phone: String!
+}
+
+input BillingInfo {
+  cardHolder: String!
+  cardNumber: String!
+  expMonth: String!
+  expYear: String!
+  CVV: String!
+}
+
+input CheckoutInput @validator {
+    orderId: ID!
+    shipping: ShippingInfo!
+    billing: BillingInfo!
+}
+
+input RateProductInput @validator {
+    productId: ID!
+    rating: Float!
+}
+
+input WriteReviewInput @validator {
+    productId: ID!
+    review: String!
+}
+
+input AddToWishlistInput @validator {
+    productId: ID!
+}
+
+input RemoveFromWishlistInput @validator {
+    productId: ID!
+}
+
+input UpdateUserInput @validator {
+    name: String
+    email: String
+    password: String
+    password_confirmation: String
+}
+
+input UploadAvatarInput @validator {
+    avatar: Upload!
+}
+
+input SetDefaultLanguageInput @validator {
+    lang: String!
+}
