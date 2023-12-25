@@ -18,6 +18,7 @@ final class AddToCart
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $product = Product::find($args['id']);
 
             if ($product->stock == 0)

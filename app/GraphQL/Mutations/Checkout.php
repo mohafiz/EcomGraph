@@ -20,6 +20,7 @@ final class Checkout
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $order = Order::find($args['orderId']);
 
             if (!$order)

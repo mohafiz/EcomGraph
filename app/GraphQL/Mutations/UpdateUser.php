@@ -18,6 +18,7 @@ final class UpdateUser
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $user = User::find(auth('sanctum')->id());
             
             $hashedPassword = null;

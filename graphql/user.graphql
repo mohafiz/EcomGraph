@@ -9,6 +9,8 @@ type Query {
 
     profile: User! @guard @auth
 
+    availableLanguages: [Language!]! @all
+
 }
 
 type Mutation {

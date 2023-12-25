@@ -26,6 +26,7 @@ final class CreateOrder
         try {
             DB::beginTransaction();
 
+            $args = $args['input'];
             $orderDetails = $args['products'];
 
             $totalPrice = 0;

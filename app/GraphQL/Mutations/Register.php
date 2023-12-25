@@ -20,6 +20,7 @@ final class Register
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $hashedPassword = Hash::make($args['password']);
             
             if (array_key_exists('telegram_id', $args)) {

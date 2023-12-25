@@ -20,6 +20,7 @@ final class CreateCategory
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $photoPath = $this->uploadCategoryPhoto($args['photo']);
 
             Category::create([

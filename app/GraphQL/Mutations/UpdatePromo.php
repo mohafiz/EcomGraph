@@ -17,6 +17,7 @@ final class UpdatePromo
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $promo = Promo::find($args['promoId']);
 
             $promo->update([

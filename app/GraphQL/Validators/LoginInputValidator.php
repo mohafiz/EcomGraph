@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Models\Language;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -22,9 +23,7 @@ final class LoginInputValidator extends Validator
     }
 
     public function attributes(): array
-    {
-        Lang::setLocale(User::find(auth('sanctum')->id())->default_language);
-        
+    {        
         return [
             'email' => Lang::get("attributes.Email"),
             'password' => Lang::get("attributes.Password")

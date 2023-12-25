@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -30,7 +32,7 @@ class User extends Authenticatable
         'code',
         'subscribed',
         'registered',
-        'default_language'
+        'language_id'
     ];
 
     /**
@@ -74,5 +76,10 @@ class User extends Authenticatable
     function wishlist(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'wishlists');   
+    }
+
+    function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class);    
     }
 }

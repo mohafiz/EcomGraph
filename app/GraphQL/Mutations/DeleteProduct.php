@@ -19,6 +19,7 @@ final class DeleteProduct
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $product = Product::find($args['productId']);
 
             if ($product->photo)

@@ -17,6 +17,7 @@ final class RateProduct
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $product = Product::find($args['productId']);
 
             $product->increment('raters');

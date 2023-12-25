@@ -15,6 +15,7 @@ final class UploadAvatar
      */
     public function __invoke($_, array $args)
     {
+        $args = $args['input'];
         $avatar = $args['avatar'];
 
         $extension = $avatar->getClientOriginalExtension();

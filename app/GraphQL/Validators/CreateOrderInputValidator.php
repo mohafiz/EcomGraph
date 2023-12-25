@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Models\Language;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -33,7 +34,14 @@ final class CreateOrderInputValidator extends Validator
 
     public function attributes(): array
     {
-        Lang::setLocale(User::find(auth('sanctum')->id())->default_language);
+        $user = User::find(auth('sanctum')->id());
+
+        if ($user->language_id)
+            $language = Language::find($user->language_id)->code;
+        else
+            $language = 'en';
+
+        Lang::setLocale($language);
         
         return [
             "shipping.fullname" => Lang::get("attributes.Fullname"),

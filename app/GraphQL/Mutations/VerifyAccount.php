@@ -17,6 +17,7 @@ final class VerifyAccount
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $user = User::where('email', $args['email'])->first();
 
             if ($user->code !== $args['code'])

@@ -19,6 +19,7 @@ final class CreatePromo
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $code = $this->generatePromoCode();
             
             $promo = Promo::create([

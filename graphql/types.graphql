@@ -70,10 +70,16 @@ type User {
     role: Int!
     avatar: String
     verified: Boolean!
-    default_language: String
+    defaultLanguage: Language @belongsTo(relation: "language")
     created_at: DateTime!
     updated_at: DateTime!
     cart: [Product!]! @belongsToMany(relation: "cart")
     wishlist: [Product!]! @belongsToMany(relation: "wishlist")
     orders: [Order!]! @hasMany
+}
+
+type Language {
+  name: String!
+  name_ar: String!
+  code: String!
 }

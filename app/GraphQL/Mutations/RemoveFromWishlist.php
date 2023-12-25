@@ -17,6 +17,8 @@ final class RemoveFromWishlist
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
+            
             $user = User::find(auth('sanctum')->id());
 
             if (!$user->wishlist->contains($args['productId']))

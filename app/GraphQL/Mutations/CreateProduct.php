@@ -17,6 +17,7 @@ final class CreateProduct
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $product = Product::create($args);
 
             return [

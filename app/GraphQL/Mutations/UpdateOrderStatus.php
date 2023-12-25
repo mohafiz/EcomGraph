@@ -18,6 +18,8 @@ final class UpdateOrderStatus
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
+            
             $order = Order::find($args['orderId']);
             $order->update(['status_id' => $args['statusId']]);
 

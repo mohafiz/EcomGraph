@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Language;
 use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
@@ -17,10 +18,14 @@ final class SetDefaultLanguage
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
+            
             $user = User::find(auth('sanctum')->id());
-            $user->update(['default_language' => $args['lang']]);
+            $language = Language::where('code', $args['lang'])->first();
 
+            $user->update(['language_id' => $language->id]);
             return $this->success();
+
         } catch (\Throwable $th) {
             Log::error($th);
             return $this->serverError();

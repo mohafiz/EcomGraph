@@ -17,6 +17,8 @@ final class WriteReview
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
+            
             Review::create([
                 'user_id' => auth('sanctum')->id(),
                 'product_id' => $args['productId'],

@@ -19,6 +19,7 @@ final class UpdateCategory
     public function __invoke($_, array $args)
     {
         try {
+            $args = $args['input'];
             $category = Category::find($args['categoryId']);
 
             $category->update([
