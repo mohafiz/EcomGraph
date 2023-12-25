@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Services\ExchangeRateService;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use NumberFormatter;
 
 class Product extends Model
 {
@@ -29,6 +32,32 @@ class Product extends Model
         'rating_sum',
         'rating'
     ];
+
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => $this->getInUserCurrency($value),
+        );
+    }
+
+    function getInUserCurrency($price)
+    {
+        if (auth('sanctum')->check()) {
+            $locale   = User::find(auth('sanctum')->id())->language->code;
+            $currency = User::find(auth('sanctum')->id())->currency->code;
+        }
+        else {
+            $locale   = 'en';
+            $currency = 'USD';
+        }
+
+        $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+
+        $converted = $currency == 'USD' ? $price :
+            ExchangeRateService::convertCurrency($price, $currency);
+
+        return $formatter->formatCurrency($converted, $currency);
+    }
 
     public function users(): BelongsToMany
     {

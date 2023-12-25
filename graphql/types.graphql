@@ -71,6 +71,7 @@ type User {
     avatar: String
     verified: Boolean!
     defaultLanguage: Language @belongsTo(relation: "language")
+    defaultCurrency: Currency @belongsTo(relation: "currency")
     created_at: DateTime!
     updated_at: DateTime!
     cart: [Product!]! @belongsToMany(relation: "cart")
@@ -79,6 +80,12 @@ type User {
 }
 
 type Language {
+  name: String!
+  name_ar: String!
+  code: String!
+}
+
+type Currency {
   name: String!
   name_ar: String!
   code: String!

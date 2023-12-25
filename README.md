@@ -58,15 +58,15 @@ Categories
 Internationalization (part I): Added support for 4 languages (English, Arabic, Spanish, and French), with English being the default.
 </li>
 
+<li>
+Internationalization (part II): Added support for 4 currencies (US dollar, Euro, Japanese yen, and Pound sterling), with the dollar being the default.
+</li>
+
 </ul>
 
 ## Future work
 
 <ul>
-
-<li>
-Internationalization.
-</li>
 
 <li>
 Performance Optimization.

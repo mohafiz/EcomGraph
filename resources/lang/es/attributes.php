@@ -34,4 +34,5 @@ return [
     'Language' => 'Idioma',
     'Avatar' => 'Avatar',
     'Verification_code' => 'Código de verificación',
+    'currency' => 'divisa'
 ];

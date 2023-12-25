@@ -32,7 +32,8 @@ class User extends Authenticatable
         'code',
         'subscribed',
         'registered',
-        'language_id'
+        'language_id',
+        'currency_id'
     ];
 
     /**
@@ -81,5 +82,10 @@ class User extends Authenticatable
     function language(): BelongsTo
     {
         return $this->belongsTo(Language::class);    
+    }
+
+    function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);    
     }
 }

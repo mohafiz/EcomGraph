@@ -9,7 +9,8 @@ type Query {
 
     profile: User! @guard @auth
 
-    availableLanguages: [Language!]! @all
+    availableLanguages: [Language!]! @guard @all
+    availableCurrencies: [Currency!]! @guard @all
 
 }
 
@@ -17,6 +18,8 @@ type Mutation {
 
   updateUser(input: UpdateUserInput!): Result! @guard
   uploadAvatar(input: UploadAvatarInput!): User! @guard
+
   setDefaultLanguage(input: SetDefaultLanguageInput!): Result! @guard
+  setDefaultCurrency(input: SetDefaultCurrencyInput!): Result! @guard
 
 }

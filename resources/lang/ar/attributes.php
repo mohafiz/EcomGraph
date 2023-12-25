@@ -34,4 +34,5 @@ return [
     'Language' => 'اللغة',
     'Avatar' => 'الصورة الرمزية',
     'Verification_code' => 'رمز التحقق',
+    'currency' => 'العملة'
 ];

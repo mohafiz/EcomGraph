@@ -33,5 +33,6 @@ return [
     'Telegram_ID' => 'Telegram ID',
     'Language' => 'Language',
     'Avatar' => 'Avatar',
-    'Verification_code' => 'Verification code'
+    'Verification_code' => 'Verification code',
+    'currency' => 'Currency'
 ];
