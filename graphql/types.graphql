@@ -80,13 +80,17 @@ type User {
 }
 
 type Language {
-  name: String!
-  name_ar: String!
+  name: String
+  name_ar: String
+  name_es: String
+  name_fr: String
   code: String!
 }
 
 type Currency {
-  name: String!
-  name_ar: String!
+  name: String
+  name_ar: String
+  name_es: String
+  name_fr: String
   code: String!
 }
