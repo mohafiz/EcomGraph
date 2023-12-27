@@ -180,3 +180,7 @@ input SetDefaultLanguageInput @validator {
 input SetDefaultCurrencyInput @validator {
     currency: String!
 }
+
+input SearchInput @validator {
+    term: String!
+}

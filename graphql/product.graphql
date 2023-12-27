@@ -1,7 +1,7 @@
 extend type Query {
 
     products(
-      name: String @where(operator: "like")
+      name: String
       orderBy: _ @orderBy(columns: ["id", "price", "stock", "created_at"])
     ): [Product] @guard @paginate(defaultCount: 10)
 
@@ -9,6 +9,9 @@ extend type Query {
 
     categories: [Category]! @guard @paginate(defaultCount: 10)
     category( id: ID! @eq ): Category @guard @find
+
+    searchForProduct(input: SearchInput!): SearchForProductResult! @guard
+    searchForCategory(input: SearchInput!): SearchForCategoryResult! @guard
 
 }
 

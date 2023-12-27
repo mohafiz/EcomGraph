@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "mll-lab/laravel-graphiql": "^3.1",
-        "nuwave/lighthouse": "^6.22"
+        "nuwave/lighthouse": "^6.22",
+        "predis/predis": "^2.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class ExchangeRateService {
@@ -13,13 +14,19 @@ class ExchangeRateService {
         $amount   = str_replace(',', '', $amount);
 
         $url = "$BASE_URL/$API_KEY/pair/USD/$to/$amount";
+
+        if (Cache::has($url))
+            return Cache::get($url);
+
         $response = Http::get($url)->json();
 
         if (!array_key_exists('result', $response) || $response['result'] != 'success')
             return 'error';
 
-        return $response['conversion_result'];
+        $conversation_result = $response['conversion_result'];
+        Cache::put($url, $conversation_result, now()->addHour());
 
+        return $conversation_result;
     }
 
 }

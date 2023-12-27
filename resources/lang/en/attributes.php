@@ -34,5 +34,6 @@ return [
     'Language' => 'Language',
     'Avatar' => 'Avatar',
     'Verification_code' => 'Verification code',
-    'currency' => 'Currency'
+    'currency' => 'Currency',
+    'term' => 'Search term'
 ];

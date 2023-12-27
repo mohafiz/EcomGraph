@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class OrderPayed extends Notification
+class OrderPayed extends Notification implements ShouldQueue
 {
     use Queueable;
 

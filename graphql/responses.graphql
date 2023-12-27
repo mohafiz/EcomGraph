@@ -19,7 +19,19 @@ type PromoData {
     promo: Promo!
 }
 
+type Products {
+    success: Boolean!
+    products: [Product]!
+}
+
+type Categories {
+    success: Boolean!
+    categories: [Category]!
+}
+
 union LoginResult = UserData | Result
 union RegisterResult = UserData | Result
 union ProductOperationResult = ProductData | Result
 union PromoOperationResult = PromoData | Result
+union SearchForProductResult = Products | Result
+union SearchForCategoryResult = Categories | Result

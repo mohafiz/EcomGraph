@@ -62,15 +62,15 @@ Internationalization (part I): Added support for 4 languages (English, Arabic, S
 Internationalization (part II): Added support for 4 currencies (US dollar, Euro, Japanese yen, and Pound sterling), with the dollar being the default.
 </li>
 
+<li>
+Performance Optimization: Utilized redis as the caching driver for caching the response from the exchange rate API, I am caching it for 1 hour, since the exchange rate is fluctuating. In addition, I have added full text indexes to products and categories table to make search operations more efficient, and lastly, I have used redis as a queue driver for sending Telegram notifications. I have monitored the performance before and after each step and it shows decrease in response times.
+</li>
+
 </ul>
 
 ## Future work
 
 <ul>
-
-<li>
-Performance Optimization.
-</li>
 
 <li>
 Analytics.
