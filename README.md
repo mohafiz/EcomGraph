@@ -81,10 +81,6 @@ Analytics: Utilized Kibana of the ELK stack to create visualizations of the data
 <ul>
 
 <li>
-Analytics.
-</li>
-
-<li>
 Social Media Integration.
 </li>
 
