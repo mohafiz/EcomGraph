@@ -182,5 +182,6 @@ input SetDefaultCurrencyInput @validator {
 }
 
 input SearchInput @validator {
-    term: String!
+    term: String
+    scroll_id: String
 }

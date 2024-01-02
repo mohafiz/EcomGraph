@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Product;
+use App\Services\ElasticSearchService;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,12 @@ final class DeleteProduct
             if ($product->photo)
                 Storage::delete(Str::replaceFirst('storage', 'public', $product->photo));
 
+            $id = $product->id;
             $product->delete();
+
+            $elasticSearch = new ElasticSearchService();
+            $elasticSearch->delete('products', $id);
+
             return $this->success();
             
         } catch (\Throwable $th) {

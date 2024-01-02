@@ -56,7 +56,7 @@ class Product extends Model
         $converted = $currency == 'USD' ? $price :
             ExchangeRateService::convertCurrency($price, $currency);
 
-        return $formatter->formatCurrency($converted, $currency);
+        return $formatter->formatCurrency((float) $converted, $currency);
     }
 
     public function users(): BelongsToMany

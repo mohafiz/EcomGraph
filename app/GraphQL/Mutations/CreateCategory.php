@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Category;
+use App\Services\ElasticSearchService;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -23,10 +24,13 @@ final class CreateCategory
             $args = $args['input'];
             $photoPath = $this->uploadCategoryPhoto($args['photo']);
 
-            Category::create([
+            $category = Category::create([
                 'name'  => $args['name'],
                 'photo' => $photoPath
             ]);
+
+            $elasticSearch = new ElasticSearchService();
+            $elasticSearch->index('categories', $category);
 
             return $this->success();
             

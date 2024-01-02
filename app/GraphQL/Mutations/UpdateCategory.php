@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Category;
+use App\Services\ElasticSearchService;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -22,12 +23,17 @@ final class UpdateCategory
             $args = $args['input'];
             $category = Category::find($args['categoryId']);
 
-            $category->update([
+            $data = [
                 'name' => array_key_exists('name', $args) ? $args['name'] : $category->name,
                 'name_ar' => array_key_exists('name_ar', $args) ? $args['name_ar'] : $category->name_ar,
                 'name_es' => array_key_exists('name_es', $args) ? $args['name_es'] : $category->name_es,
                 'name_fr' => array_key_exists('name_rf', $args) ? $args['name_fr'] : $category->name_fr,
-            ]);
+            ];
+
+            $category->update($data);
+
+            $elasticSearch = new ElasticSearchService();
+            $elasticSearch->update('categories', $category->id, $data);
 
             if (array_key_exists('photo', $args))
                 $this->updateCategoryPhoto($category, $args['photo']);

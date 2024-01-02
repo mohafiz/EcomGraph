@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Product;
+use App\Services\ElasticSearchService;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Log;
 
@@ -19,6 +20,9 @@ final class CreateProduct
         try {
             $args = $args['input'];
             $product = Product::create($args);
+
+            $elasticSearch = new ElasticSearchService();
+            $elasticSearch->index('products', $product);
 
             return [
                 '__typename' => 'ProductData',

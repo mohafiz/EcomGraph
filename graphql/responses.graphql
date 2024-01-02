@@ -19,9 +19,39 @@ type PromoData {
     promo: Promo!
 }
 
-type Products {
+type ProductSearch {
+    id: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+    price: String
+    description: String
+    description_ar: String
+    description_es: String
+    description_fr: String
+}
+
+type SearchProducts {
     success: Boolean!
-    products: [Product]!
+    total: Int!
+    scroll_id: String
+    products: [ProductSearch]!
+}
+
+type CategorySearch {
+    id: ID!
+    name: String
+    name_ar: String
+    name_es: String
+    name_fr: String
+}
+
+type SearchCategories {
+    success: Boolean!
+    total: Int!
+    scroll_id: String
+    categories: [CategorySearch]!
 }
 
 type Categories {
@@ -33,5 +63,5 @@ union LoginResult = UserData | Result
 union RegisterResult = UserData | Result
 union ProductOperationResult = ProductData | Result
 union PromoOperationResult = PromoData | Result
-union SearchForProductResult = Products | Result
-union SearchForCategoryResult = Categories | Result
+union SearchForProductResult = SearchProducts | Result
+union SearchForCategoryResult = SearchCategories | Result

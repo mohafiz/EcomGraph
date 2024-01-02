@@ -8,6 +8,7 @@ use App\Models\Promo;
 use App\Models\Status;
 use App\Models\User;
 use App\Notifications\OrderPlaced;
+use App\Services\ElasticSearchService;
 use App\Traits\ResponseTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,9 @@ final class CreateOrder
             $user->cart()->detach();
 
             $user->notify(new OrderPlaced($order));
+
+            $elasticSearch = new ElasticSearchService();
+            $elasticSearch->index('orders', $order);
 
             DB::commit();
             return $order;
